@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Vize Ödev</title>
+</head>
+<body>
+    
+</body>
+</html>
+
+<table border="5px"  bordercolor=black >
+    <thead>
+        <style type="text/css">
+        body{
+            background-color: royalblue;
+            text-align:center;
+        }
+        table
+        {
+            background-color: palegoldenrod;
+            
+        }
+           tr:nth-child(even){
+             background-color: yellow;
+            }
+        td{
+        
+        font-size:larger;
+        color:red;
+        font-weight: bolder;
+        padding: 8px;
+        
+        
+        }
+        th{
+          color:blue;
+          font-size: 30px;
+          font-style: italic;
+          
+          
+        }
+        
+        
+        
+        </style>
+        <title>Kayıtlar</title>
+          <tr>
+          <th>Album Id</th>
+          <th>Users Id</th>
+          <th>Albüm Title</th>
+          <th>User Name</th>
+          <th>User Email</th>
+          <th>User Company Name</th>
+          <th>User WebSite</th>
+          </tr>
+      </thead>
+      <tbody id="ÖDEV"></tbody>
+      </table>
+      <script>
+        const users = fetch("https://jsonplaceholder.typicode.com/users");
+        const albums = fetch("https://jsonplaceholder.typicode.com/albums");
+        Promise.all([users, albums])
+          .then((values) => {
+            return Promise.all(values.map((r) => r.json()));
+    })
+            .then(([users, albums]) => {
+              console.log("users", users);
+              console.log("albums", albums);
+            for (let i = 0; i < albums.length; i++) {
+              result = "<tr>";
+              result += "<td>" + albums[i].id + "</td>";
+              result += "<td>" + users[albums[i].userId-1].id + "</td>";
+              result += "<td>" + albums[i].title + "</td>";
+              result += "<td>" + users[albums[i].userId-1].username + "</td>";
+              result += "<td>" + users[albums[i].userId-1].email + "</td>";
+              result += "<td>" + users[albums[i].userId-1].company.name + "</td>";
+              result += "<td>" + users[albums[i].userId-1].website + "</td>";
+              result += "</tr>";
+              document.getElementById("ÖDEV").innerHTML += result;
+            }
+    });
+      </script>
